@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health App: BMI Calculator</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+
+<div class="bg-white p-8 rounded shadow-md max-w-md w-full">
+    <img src="/static/logo.png" class="mb-4">
+    
+    <h1 class="text-2xl font-semibold mb-4">Health App: BMI Calculator</h1>
+
+<!--Inputted values of weight and height as text in order to allow decimals since using type=number was not allowing to do so and allowed only integers-->
+    <form action="/" method="post">
+        <div>
+            <label for="height" class="block text-sm font-medium text-gray-700">Height (cm):</label>
+            <input type="text" name="height" class="mt-1 p-2 border rounded w-full" placeholder="Enter your height">
+        </div>
+
+        <div class="mt-4">
+            <label for="weight" class="block text-sm font-medium text-gray-700">Weight (kg):</label>
+            <input type="text" name="weight" class="mt-1 p-2 border rounded w-full" placeholder="Enter your weight">
+        </div>
+
+        <button type="submit" class="mt-8 bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">Calculate BMI</button>
+    </form>
+
+    {% if bmi %}
+        <div class="mt-6">
+            <p class="text-lg font-semibold">BMI = {{ bmi }}</p>
+        </div>
+    {% elif error %}
+        <div class="mt-6">
+            <p class="text-lg text-red-600">Error: {{ error }}</p>
+        </div>
+    {% endif %}
+</div>
+
+
+<!---Added a small conversion table on the side since I was not able to make the conversions automatically happen in the BMI calculator-->
+
+        <div class="w-1/3 pl-8">
+            <h2 class="text-lg font-semibold mb-4">Conversion Calculator :</h2>
+             <p class="text-sm text-gray-600 mb-4">
+            Convert height into cm and pounds into kg in order to use the BMI calculator
+        </p>
+
+            <div class="mb-4">
+                <label for="heightInput" class="block text-sm font-medium text-gray-700">Height (feet and inches):</label>
+                <input type="text" id="heightInput" class="mt-1 p-2 border rounded w-full" placeholder="e.g. 5'3'' ">
+            </div>
+            <button onclick="convertHeight()" class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">Convert Height</button>
+
+            <div class="mt-2" id="convertedHeight"></div>
+
+            
+            <div class="mt-4">
+                <label for="weightInput" class="block text-sm font-medium text-gray-700">Weight (pounds):</label>
+                <input type="text" id="weightInput" class="mt-1 p-2 border rounded w-full" placeholder="e.g. 125 lbs">
+            </div>
+            <button onclick="convertWeight()" class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">Convert Weight</button>
+
+            <div class="mt-2" id="convertedWeight"></div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+///////////////height conversion:////////////
+    function convertHeight() {
+        const heightInput = document.getElementById('heightInput').value;
+        const convertedHeightElement = document.getElementById('convertedHeight');
+
+        const convertedHeight = convertHeightToCm(heightInput);
+
+        convertedHeightElement.innerHTML = `<p class="text-sm">Converted Height: ${convertedHeight} cm</p>`;
+    }
+
+ function convertHeightToCm(heightStr) {
+        const [feet, inches] = heightStr.split("'").map(parseFloat);
+        const heightCm = feet * 30.48 + inches * 2.54;
+        return heightCm.toFixed(2);
+    }
+
+/////////////////weight://////////////
+
+    function convertWeight() {
+        const weightInput = document.getElementById('weightInput').value;
+        const convertedWeightElement = document.getElementById('convertedWeight');
+
+        const convertedWeight = convertWeightToKg(weightInput);
+
+        convertedWeightElement.innerHTML = `<p class="text-sm">Converted Weight: ${convertedWeight} kg</p>`;
+    }
+
+    function convertWeightToKg(weightStr) {
+        const weightPounds = parseFloat(weightStr);
+        const weightKg = weightPounds * 0.453592;
+        return weightKg.toFixed(2);
+    }
+</script>
+
+
+</body>
+</html>
+
+
+    
