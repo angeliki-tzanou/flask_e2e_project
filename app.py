@@ -1,6 +1,17 @@
 from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
+
+load_dotenv()
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
