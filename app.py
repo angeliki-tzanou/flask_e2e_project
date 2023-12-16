@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
+from flask_migrate import Migrate
 import os
 
 app = Flask(__name__)
@@ -12,6 +13,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+migrate = Migrate(app, db)
+
+class BMI(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    height = db.Column(db.Float, nullable=False)
+    weight = db.Column(db.Float, nullable=False)
+    bmi = db.Column(db.Float, nullable=True)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -31,7 +39,13 @@ def index():
                 raise ValueError("Height and weight must be positive numbers.")
 
             bmi = "{:.2f}".format(weight / ((height / 100) * (height / 100)))
-
+            
+            new_bmi = BMI(height=height, weight=weight, bmi=bmi)
+            # Add the new BMI object to the session
+            db.session.add(new_bmi)
+            # Commit the changes to the database
+            db.session.commit()
+            
         except ValueError as e:
             error = str(e)
 
