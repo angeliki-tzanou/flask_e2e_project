@@ -41,11 +41,11 @@ def index():
             bmi = "{:.2f}".format(weight / ((height / 100) * (height / 100)))
             
             new_bmi = BMI(height=height, weight=weight, bmi=bmi)
-            # Add the new BMI object to the session
+            #new record inserted of my BMI object from my app
             db.session.add(new_bmi)
-            # Commit the changes to the database
+            # Saving data in db
             db.session.commit()
-            
+
         except ValueError as e:
             error = str(e)
 
