@@ -4,23 +4,16 @@ from dotenv import load_dotenv
 from flask_migrate import Migrate
 from flask_dance.contrib.google import make_google_blueprint, google
 import os
+import logging
+
+##Logger section:
+logging.basicConfig(filename='bmi.log', level=logging.INFO)
 
 app = Flask(__name__)
 
 load_dotenv()
 
 ## OAUTH section:
-# Set a secret key for session management
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your_default_secret_key')
-
-google_bp = make_google_blueprint(
-    client_id=os.environ.get('GOOGLE_OAUTH_CLIENT_ID'),
-    client_secret=os.environ.get('GOOGLE_OAUTH_CLIENT_SECRET'),
-    redirect_to='google_login',
-)
-
-app.register_blueprint(google_bp, url_prefix='/google_login')
-
 
 ## MYSQL AUTH section:
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
@@ -38,7 +31,10 @@ class BMI(db.Model):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    logging.info("Received POST request")
+
     print("Received POST request")
+
     bmi = None
     error = None
 
@@ -71,19 +67,6 @@ def get_bmi_data():
     bmi_data = BMI.query.all()
     bmi_list = [{'height': record.height, 'weight': record.weight, 'bmi': record.bmi} for record in bmi_data]
     return jsonify({'bmi_data': bmi_list})
-
-### Google OAuth:
-@app.route('/login')
-def login():
-    return render_template('login.html', google=google)
-
-@app.route('/google_login')
-def google_login():
-    if not google.authorized:
-        return redirect(url_for('google.login'))
-    resp = google.get('/plus/v1/people/me')
-    assert resp.ok, resp.text
-    return 'Logged in as: ' + resp.json()['displayName']
 
 if __name__ == '__main__':
     app.run(debug=True)
