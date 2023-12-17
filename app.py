@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, redirect, jsonify, url_for
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 from flask_migrate import Migrate
+from flask_dance.contrib.google import make_google_blueprint, google
 import os
 
 app = Flask(__name__)
@@ -56,6 +57,22 @@ def get_bmi_data():
     bmi_data = BMI.query.all()
     bmi_list = [{'height': record.height, 'weight': record.weight, 'bmi': record.bmi} for record in bmi_data]
     return jsonify({'bmi_data': bmi_list})
+
+### Google OAuth:
+google_bp = make_google_blueprint(client_id='your-client-id', client_secret='your-client-secret', redirect_to='google_login')
+app.register_blueprint(google_bp, url_prefix='/google_login')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/google_login')
+def google_login():
+    if not google.authorized:
+        return redirect(url_for('google.login'))
+    resp = google.get('/plus/v1/people/me')
+    assert resp.ok, resp.text
+    return 'Logged in as: ' + resp.json()['displayName']
 
 if __name__ == '__main__':
     app.run(debug=True)
