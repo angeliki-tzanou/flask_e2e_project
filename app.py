@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 from flask_migrate import Migrate
@@ -50,6 +50,12 @@ def index():
             error = str(e)
 
     return render_template('index.html', bmi=bmi, error=error)
+
+@app.route('/api/bmi', methods=['GET'])
+def get_bmi_data():
+    bmi_data = BMI.query.all()
+    bmi_list = [{'height': record.height, 'weight': record.weight, 'bmi': record.bmi} for record in bmi_data]
+    return jsonify({'bmi_data': bmi_list})
 
 if __name__ == '__main__':
     app.run(debug=True)
