@@ -9,6 +9,20 @@ app = Flask(__name__)
 
 load_dotenv()
 
+## OAUTH section:
+# Set a secret key for session management
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'your_default_secret_key')
+
+google_bp = make_google_blueprint(
+    client_id=os.environ.get('GOOGLE_OAUTH_CLIENT_ID'),
+    client_secret=os.environ.get('GOOGLE_OAUTH_CLIENT_SECRET'),
+    redirect_to='google_login',
+)
+
+app.register_blueprint(google_bp, url_prefix='/google_login')
+
+
+## MYSQL AUTH section:
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -59,12 +73,9 @@ def get_bmi_data():
     return jsonify({'bmi_data': bmi_list})
 
 ### Google OAuth:
-google_bp = make_google_blueprint(client_id='your-client-id', client_secret='your-client-secret', redirect_to='google_login')
-app.register_blueprint(google_bp, url_prefix='/google_login')
-
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    return render_template('login.html', google=google)
 
 @app.route('/google_login')
 def google_login():
