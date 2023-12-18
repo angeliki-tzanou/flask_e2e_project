@@ -57,6 +57,11 @@ def index():
 
     print("Received POST request")
 
+    ## Trying to find why my app is not deploying on Azure:
+    logging.info("DATABASE_URL from environment: %s", os.environ.get('DATABASE_URL'))
+    print("DATABASE_URL from environment:", os.environ.get('DATABASE_URL'))
+
+
     bmi = None
     error = None
 
