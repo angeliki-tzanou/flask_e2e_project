@@ -2,10 +2,9 @@ from flask import Flask, render_template, request, redirect, jsonify, url_for
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 from flask_migrate import Migrate
-from flask_dance.contrib.google import make_google_blueprint, google
-from flask_dance.consumer.storage.sqla import OAuthConsumerMixin
-from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+#from flask_dance.contrib.google import make_google_blueprint, google
+#from flask_dance.consumer.storage.sqla import OAuthConsumerMixin
+#from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
 import os
 import logging
 
@@ -13,9 +12,11 @@ import logging
 logging.basicConfig(filename='bmi.log', level=logging.INFO)
 
 app = Flask(__name__)
-db = SQLAlchemy(app)
 
 load_dotenv()
+
+db = SQLAlchemy(app)
+
 
 ## MYSQL AUTH section:
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
@@ -83,6 +84,7 @@ def index():
 
     return render_template('index.html', bmi=bmi, error=error)
 
+### API Endpoint
 @app.route('/api/bmi', methods=['GET'])
 def get_bmi_data():
     bmi_data = BMI.query.all()
