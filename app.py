@@ -3,6 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 from flask_migrate import Migrate
 from flask_dance.contrib.google import make_google_blueprint, google
+from flask_dance.consumer.storage.sqla import OAuthConsumerMixin
+from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import os
 import logging
 
@@ -10,16 +13,13 @@ import logging
 logging.basicConfig(filename='bmi.log', level=logging.INFO)
 
 app = Flask(__name__)
+db = SQLAlchemy(app)
 
 load_dotenv()
-
-## OAUTH section:
 
 ## MYSQL AUTH section:
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db = SQLAlchemy(app)
 
 migrate = Migrate(app, db)
 
@@ -28,6 +28,27 @@ class BMI(db.Model):
     height = db.Column(db.Float, nullable=False)
     weight = db.Column(db.Float, nullable=False)
     bmi = db.Column(db.Float, nullable=True)
+
+
+# GOOGLE OAUTH:#################################################
+##class User(db.Model, UserMixin):
+    #id = db.Column(db.Integer, primary_key=True)
+    # Add any additional fields for the User model as needed
+
+# Flask-Login configuration
+##login_manager = LoginManager(app)
+###login_manager.login_view = 'google.login'
+
+# Configure Google OAuth
+##google_bp = make_google_blueprint(client_id=os.environ.get('GOOGLE_CLIENT_ID'),
+                                  #client_secret=os.environ.get('GOOGLE_CLIENT_SECRET'),
+                                  #redirect_to='google_login',
+                                  ##scope=['profile', 'email'])
+
+#app.register_blueprint(google_bp, url_prefix='/google_login')
+
+# Flask-Dance storage setup
+#google_bp.backend = SQLAlchemyStorage(OAuthConsumerMixin, db.session, user=User)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
