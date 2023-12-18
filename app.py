@@ -69,4 +69,4 @@ def get_bmi_data():
     return jsonify({'bmi_data': bmi_list})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)

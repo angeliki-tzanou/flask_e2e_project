@@ -1,5 +1,6 @@
-flask
+Flask
 flask-sqlalchemy
 flask-migrate
 python-dotenv
 flask-dance
+mysql-connector-python
