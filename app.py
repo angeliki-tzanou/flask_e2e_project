@@ -2,26 +2,36 @@ from flask import Flask, render_template, request, redirect, jsonify, url_for
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 from flask_migrate import Migrate
+import os
+import logging
 #from flask_dance.contrib.google import make_google_blueprint, google
 #from flask_dance.consumer.storage.sqla import OAuthConsumerMixin
 #from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
-import os
-import logging
 
-##Logger section:
+# Logger section:
 logging.basicConfig(filename='bmi.log', level=logging.INFO)
 
 app = Flask(__name__)
 
+
 load_dotenv()
+
+# Printing .env values for deployment debugging:
+print("MYSQL_USERNAME:", os.environ.get("MYSQL_USERNAME"))
+print("MYSQL_PASSWORD:", os.environ.get("MYSQL_PASSWORD"))
+print("MYSQL_HOST:", os.environ.get("MYSQL_HOST"))
+print("MYSQL_PORT:", os.environ.get("MYSQL_PORT"))
+print("MYSQL_DATABASE:", os.environ.get("MYSQL_DATABASE"))
+print("DATABASE_URL:", os.environ.get("DATABASE_URL"))
+
+
+# MYSQL AUTH section:
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-
-## MYSQL AUTH section:
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///test.db')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+# Migrate section:
 migrate = Migrate(app, db)
 
 class BMI(db.Model):
@@ -54,14 +64,10 @@ class BMI(db.Model):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     logging.info("Received POST request")
-
     print("Received POST request")
-
     ## Trying to find why my app is not deploying on Azure:
     logging.info("DATABASE_URL from environment: %s", os.environ.get('DATABASE_URL'))
     print("DATABASE_URL from environment:", os.environ.get('DATABASE_URL'))
-
-
     bmi = None
     error = None
 
@@ -79,7 +85,7 @@ def index():
             bmi = "{:.2f}".format(weight / ((height / 100) * (height / 100)))
             
             new_bmi = BMI(height=height, weight=weight, bmi=bmi)
-            #new record inserted of my BMI object from my app
+            # new record inserted of my BMI object from my app
             db.session.add(new_bmi)
             # Saving data in db
             db.session.commit()

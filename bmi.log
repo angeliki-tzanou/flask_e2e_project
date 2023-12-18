@@ -234,3 +234,18 @@ INFO:werkzeug:[33mPress CTRL+C to quit[0m
 INFO:root:Received POST request
 INFO:werkzeug:127.0.0.1 - - [18/Dec/2023 03:23:47] "GET /?authuser=1 HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [18/Dec/2023 03:23:47] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.88.0.3:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.88.0.3:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:root:Received POST request
+INFO:root:DATABASE_URL from environment: mysql+mysqlconnector://ang_final:lilika123!@angfinal.mysql.database.azure.com:3306/angfinal
+INFO:werkzeug:127.0.0.1 - - [18/Dec/2023 19:30:44] "GET /?authuser=1&redirectedPreviously=true HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [18/Dec/2023 19:30:44] "[36mGET /static/logo.png HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [18/Dec/2023 19:30:45] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
