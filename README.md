@@ -19,7 +19,9 @@ HHA 504- Final Project
 - API Service (Flask Backend)
 - Logger and or Sentry.io (Debugging & Logging)
 - Docker (Containerization)
-GCP or Azure (Deployment)
-Authorization (Google OAuth): only one I could not use 
-- I was not able to successfully make it work but I have commented out parts of the code in my app.py and 
+- GCP or Azure (Deployment)
+- Authorization (Google OAuth): only one I could not use:
+    - I was not able to successfully make it work but I have commented out parts of the code in my app.py that I was trying to use for Google OAuth
+
+ 
 
