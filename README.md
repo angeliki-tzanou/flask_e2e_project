@@ -40,5 +40,12 @@ HHA 504- Final Project
    - Then I used ```docker-compose up``` to start my application within the Docker created container
    - <img width="250" alt="Screenshot 2023-12-17 at 8 12 42 PM" src="https://github.com/angeliki-tzanou/flask_e2e_project/assets/141374140/76507f3d-104e-45dd-9b37-6a9c37dc17ef">
 
+- Deploy app in Cloud:
+  - In this step, I ran to a couple of issues while trying to deploy my app through Azure
+  - I used the commands in my terminal to deploy my app such as ```curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash``` (to install azure in my environment), used ```az``` to ensure smooth installation of azure, used ```az login --use-device-code``` to authorize my device as a login, used ```az webapp up --resource-group <groupname> --name <app-name> --runtime <PYTHON:3.9> --sku <B1>``` with a resource group I had created in my azure account and wanted to use for this app and then naming the application.
+  - I ran into a couple of issues trying to successfully deploy my app since it had some connectivity issues with my sql credentials
+  - Thats why you will see throughout my app.py code I have included some ```print``` statements where I would test if my credentials were being successfully pulled from my ```.env``` file, while also keeping track of my log stream tab under my azure webapp application page.
+  - By doing so i was able to make the necessary changes in my app.py code, as well as under my named ```bmi2``` web app in azure I navigated under Settings>Configurations and added in my application settings my ```database_url``` and ```sqlalchemy database uri``` and assigned them in the according values I had previously stored in my ```.env``` file which solved the problem:
+<img width="600" alt="SuccessfulAzureDeplImage" src="https://github.com/angeliki-tzanou/flask_e2e_project/assets/141374140/5e4190c0-05f0-4f8f-ad73-6e96bce401c9">
 
 
