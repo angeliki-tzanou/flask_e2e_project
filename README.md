@@ -34,4 +34,11 @@ HHA 504- Final Project
   - Lastly I confirmed my app runs by using ```python app.py``` command where I clicked the link and it redirected me to my flask application successfully
  <img width="350" alt="Locallyapprunning" src="https://github.com/angeliki-tzanou/flask_e2e_project/assets/141374140/2771d911-559d-4c33-b0eb-63b1eefbac8f">
 
+ - With Docker locally:
+   - In my terminal I pip installed the necessary packages
+   - Then instead of manually doing so, I used ```docker-compose build``` to build me a docker image for my app.
+   - Then I used ```docker-compose up``` to start my application within the Docker created container
+   - <img width="250" alt="Screenshot 2023-12-17 at 8 12 42 PM" src="https://github.com/angeliki-tzanou/flask_e2e_project/assets/141374140/76507f3d-104e-45dd-9b37-6a9c37dc17ef">
+
+
 
