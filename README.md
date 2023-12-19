@@ -23,5 +23,15 @@ HHA 504- Final Project
 - Authorization (Google OAuth): only one I could not use
     - I was not able to successfully make it work but I have commented out parts of the code in my app.py that I was trying to use for Google OAuth
 
- 
+### Steps to run web service:
+- Without Docker locally:
+  - Create the flask app code e.g. app.py, templates etc.
+  - Create a MySQL database in my case I used Azure
+  - In the Google shell environment in my case, I created a .env file storing all the MySQL credentials
+  - Then I connected my flaskapp environment with my MySQL database
+  - Then in my terminal, I was able to navigate within and create a database to create a "BMI" table where all the data gets stored in from my web application when a user provides them
+  - I ensured all packages were imported in my app.py and pip installed as well as included the necessary ones for my app to run in my ```requirements.txt``` file
+  - Lastly I confirmed my app runs by using ```python app.py``` command where I clicked the link and it redirected me to my flask application successfully
+ <img width="200" alt="Locallyapprunning" src="https://github.com/angeliki-tzanou/flask_e2e_project/assets/141374140/2771d911-559d-4c33-b0eb-63b1eefbac8f">
+
 
