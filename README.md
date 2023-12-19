@@ -48,4 +48,13 @@ HHA 504- Final Project
   - By doing so i was able to make the necessary changes in my app.py code, as well as under my named ```bmi2``` web app in azure I navigated under Settings>Configurations and added in my application settings my ```database_url``` and ```sqlalchemy database uri``` and assigned them in the according values I had previously stored in my ```.env``` file which solved the problem:
 <img width="600" alt="SuccessfulAzureDeplImage" src="https://github.com/angeliki-tzanou/flask_e2e_project/assets/141374140/5e4190c0-05f0-4f8f-ad73-6e96bce401c9">
 
+- Template of my .env file:
+  - MYSQL_USERNAME= my username from MySQL in Azure
+  - MYSQL_PASSWORD= my set password
+  - MYSQL_HOST= my host provided in this format e.g. host.mysql.database.azure.com
+  - MYSQL_PORT= port which for Azure is 3306
+  - MYSQL_DATABASE= the db name I created
+  - DATABASE_URL= used this format and inputted my credentials where needed       mysql+mysqlconnector://username:pass@host.mysql.database.azure.com:3306/MYSQL_DB
+  - SQLALCHEMY_DATABASE_URI= here similarly as well
+
 
