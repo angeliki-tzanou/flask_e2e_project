@@ -58,7 +58,7 @@ HHA 504- Final Project
   - SQLALCHEMY_DATABASE_URI= here similarly as well
  
 - Success DEMO APP running- AZURE: (all other DEMOS and screenshots are in my ```docs``` folder)
-[Azure ONLY.mov.zip](https://github.com/angeliki-tzanou/flask_e2e_project/files/13709892/Azure.ONLY.mov.zip)
+  - [Azure ONLY.mov.zip](https://github.com/angeliki-tzanou/flask_e2e_project/files/13709892/Azure.ONLY.mov.zip)
 
 
 
