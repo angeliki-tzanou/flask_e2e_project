@@ -56,5 +56,9 @@ HHA 504- Final Project
   - MYSQL_DATABASE= the db name I created
   - DATABASE_URL= used this format and inputted my credentials where needed       mysql+mysqlconnector://username:pass@host.mysql.database.azure.com:3306/MYSQL_DB
   - SQLALCHEMY_DATABASE_URI= here similarly as well
+ 
+- Success APP running- AZURE:
+[Azure ONLY.mov.zip](https://github.com/angeliki-tzanou/flask_e2e_project/files/13709892/Azure.ONLY.mov.zip)
+
 
 
