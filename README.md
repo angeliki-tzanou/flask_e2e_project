@@ -32,6 +32,6 @@ HHA 504- Final Project
   - Then in my terminal, I was able to navigate within and create a database to create a "BMI" table where all the data gets stored in from my web application when a user provides them
   - I ensured all packages were imported in my app.py and pip installed as well as included the necessary ones for my app to run in my ```requirements.txt``` file
   - Lastly I confirmed my app runs by using ```python app.py``` command where I clicked the link and it redirected me to my flask application successfully
- <img width="200" alt="Locallyapprunning" src="https://github.com/angeliki-tzanou/flask_e2e_project/assets/141374140/2771d911-559d-4c33-b0eb-63b1eefbac8f">
+ <img width="350" alt="Locallyapprunning" src="https://github.com/angeliki-tzanou/flask_e2e_project/assets/141374140/2771d911-559d-4c33-b0eb-63b1eefbac8f">
 
 
