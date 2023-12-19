@@ -45,20 +45,13 @@ class BMI(db.Model):
 ##class User(db.Model, UserMixin):
     #id = db.Column(db.Integer, primary_key=True)
     # Add any additional fields for the User model as needed
-
-# Flask-Login configuration
 ##login_manager = LoginManager(app)
 ###login_manager.login_view = 'google.login'
-
-# Configure Google OAuth
 ##google_bp = make_google_blueprint(client_id=os.environ.get('GOOGLE_CLIENT_ID'),
                                   #client_secret=os.environ.get('GOOGLE_CLIENT_SECRET'),
                                   #redirect_to='google_login',
                                   ##scope=['profile', 'email'])
-
 #app.register_blueprint(google_bp, url_prefix='/google_login')
-
-# Flask-Dance storage setup
 #google_bp.backend = SQLAlchemyStorage(OAuthConsumerMixin, db.session, user=User)
 
 @app.route('/', methods=['GET', 'POST'])
